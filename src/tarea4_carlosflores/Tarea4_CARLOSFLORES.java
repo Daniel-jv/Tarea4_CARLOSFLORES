@@ -37,10 +37,6 @@ public class Tarea4_CARLOSFLORES {
                     
                     case 1:{
                         System.out.println("\n---ES TURNO DEL JUGADOR 1---");
-                        contador_hits();//imprime aciertos de los jugadores
-                        instrucciones_coordenadas();//imprime instrucciones de coordenadas
-                        int cord [] = coordenas();
-                        tabB = checkforhit(tabB, cord,turno);
                         char show [][] = tabB;
                         System.out.println("TABLERO DEL JUGADOR 2");
                         for (int j = 0; j < show.length; j++) {
@@ -54,6 +50,10 @@ public class Tarea4_CARLOSFLORES {
                             }
                             System.out.println("");
                         }
+                        contador_hits();//imprime aciertos de los jugadores
+                        instrucciones_coordenadas();//imprime instrucciones de coordenadas
+                        int cord [] = coordenas();
+                        tabB = checkforhit(tabB, cord,turno);
                         if(cont_hits_player1 > 2){
                             System.out.println("\nATENCION!!!");
                             System.out.println("-El jugador 1 a impactado 3 veces un barco enemigo.");
@@ -64,10 +64,6 @@ public class Tarea4_CARLOSFLORES {
                     
                     case 2:{
                         System.out.println("\n---ES TURNO DEL JUGADOR 2---");
-                        contador_hits();//imprime aciertos de los jugadores
-                        instrucciones_coordenadas();//imprime instrucciones de coordenadas
-                        int cord [] = coordenas();
-                        tabA = checkforhit(tabA, cord,turno);
                         char show [][] = tabA;
                         System.out.println("TABLERO DEL JUGADOR 1");
                         for (int j = 0; j < show.length; j++) {
@@ -81,6 +77,10 @@ public class Tarea4_CARLOSFLORES {
                             }
                             System.out.println("");
                         }
+                        contador_hits();//imprime aciertos de los jugadores
+                        instrucciones_coordenadas();//imprime instrucciones de coordenadas
+                        int cord [] = coordenas();
+                        tabA = checkforhit(tabA, cord,turno);
                         if(cont_hits_player2 > 2){
                             System.out.println("\nATENCION!!!");
                             System.out.println("-El jugador 2 a impactado 3 veces un barco enemigo.");
