@@ -29,7 +29,7 @@ public class Tarea4_CARLOSFLORES {
             char tabA[][] = spawn_tabA();
             char tabB[][] = spawn_tabB();
             
-            for (int i = 0; i < 100; i++) {
+            for (int i = 0;; i++) {
                 int turno = 1;
                 if(i % 2 != 0){
                     turno = 2;
@@ -39,14 +39,14 @@ public class Tarea4_CARLOSFLORES {
                     
                     case 1:{
                         System.out.println("\nATENCION!!!");
-                        System.out.println("Es turno del jugador 1");
+                        System.out.println("-Es turno del jugador 1");
                         if(cont_hits_player1 > 0){
                             System.out.println("NOTA: El jugador 1 lleva "+cont_hits_player1+" hits.");
                         }
                         if(cont_hits_player2 > 0){
                             System.out.println("NOTA: El jugador 1 lleva "+cont_hits_player2+" hits.");
                         }
-                        System.out.println("\nCOORDENADAS");
+                        System.out.println("\n---COORDENADAS");
                         System.out.println("A continuacion ingrese las coordenadas que desea atacar.");
                         System.out.println("NOTA: las fila y columnas se cuentan desde 0");
                         int cord [] = coordenas();
@@ -63,19 +63,24 @@ public class Tarea4_CARLOSFLORES {
                             }
                             System.out.println("");
                         }
+                        if(cont_hits_player1 == 3){
+                            System.out.println("\nATENCION!!!");
+                            System.out.println("-El jugador 1 a impactado 3 veces un barco enemigo, por lo tanto a ganado.");
+                            var = false;
+                        }
                         break;
-                    }
+                    }//fin case 1
                     
                     case 2:{
                         System.out.println("\nATENCION!!!");
-                        System.out.println("Es turno del jugador 2");
+                        System.out.println("-Es turno del jugador 2");
                         if(cont_hits_player1 > 0){
                             System.out.println("NOTA: El jugador 1 lleva "+cont_hits_player1+" hits.");
                         }
                         if(cont_hits_player2 > 0){
                             System.out.println("NOTA: El jugador 1 lleva "+cont_hits_player2+" hits.");
                         }
-                        System.out.println("\nCOORDENADAS");
+                        System.out.println("\n---COORDENADAS");
                         System.out.println("A continuacion ingrese las coordenadas que desea atacar.");
                         int cord [] = coordenas();
                         tabA = checkforhit(tabA, cord,turno);
@@ -91,14 +96,19 @@ public class Tarea4_CARLOSFLORES {
                             }
                             System.out.println("");
                         }
+                        if(cont_hits_player2 == 3){
+                            System.out.println("\nATENCION!!!");
+                            System.out.println("-El jugador 2 a impactado 3 veces un barco enemigo, por lo tanto a ganado.");
+                            var = false;
+                        }
                         break;
-                    }
+                    }//fin case 2
                     
-                }
+                }//fin switch
                 
-            }
+            }//fin for
             
-        }while(var);
+        }while(var = true);//fin while
         
     }//fin main
     
@@ -123,7 +133,7 @@ public class Tarea4_CARLOSFLORES {
         }
         coordenada[1] = columna;
         return coordenada;
-    }
+    }//fin coordenadas
     
     public static char [][] checkforhit(char tab [][], int cord [] , int turno){
         char show [][] = tab;
@@ -146,7 +156,7 @@ public class Tarea4_CARLOSFLORES {
             }
         }
         return show;
-    }
+    }//fin checkforhit
     
     public static char[][] spawn_tabA(){
         char tabA [][] = new char[6][5];
@@ -160,7 +170,7 @@ public class Tarea4_CARLOSFLORES {
             }
         }
         return tabA;
-    }
+    }//fin spawn_tabA
     
     public static char[][] spawn_tabB(){
         char tabB [][] = new char[6][5];
@@ -174,6 +184,6 @@ public class Tarea4_CARLOSFLORES {
             }
         }
         return tabB;
-    }
+    }//fin spawn_tabB
     
 }//fin class 
