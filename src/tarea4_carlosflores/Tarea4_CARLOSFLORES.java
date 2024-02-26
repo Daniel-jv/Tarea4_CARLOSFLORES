@@ -7,9 +7,9 @@ public class Tarea4_CARLOSFLORES {
     static Scanner leer = new Scanner(System.in);
     static int cont_hits_player1;
     static int cont_hits_player2;
-            
+    static boolean var = true;        
+    
     public static void main(String[] args) {
-        boolean var = true;
         
         /*ESTRUCTURA DEL JUEGO
         
@@ -24,12 +24,10 @@ public class Tarea4_CARLOSFLORES {
         
         do{
             System.out.println("Bienvenidos/as a Battleship\nModo: 2 jugadores\nLes deseo suerte...");
-            cont_hits_player1 = 0;
-            cont_hits_player2 = 0;
             char tabA[][] = spawn_tabA();
             char tabB[][] = spawn_tabB();
-            
-            for (int i = 0;; i++) {
+            int var2 = 0;
+            for (int i = 0;var2 == 0;i++) {
                 int turno = 1;
                 if(i % 2 != 0){
                     turno = 2;
@@ -63,7 +61,7 @@ public class Tarea4_CARLOSFLORES {
                             }
                             System.out.println("");
                         }
-                        if(cont_hits_player1 == 3){
+                        if(cont_hits_player1 > 2){
                             System.out.println("\nATENCION!!!");
                             System.out.println("-El jugador 1 a impactado 3 veces un barco enemigo, por lo tanto a ganado.");
                             var = false;
@@ -96,7 +94,7 @@ public class Tarea4_CARLOSFLORES {
                             }
                             System.out.println("");
                         }
-                        if(cont_hits_player2 == 3){
+                        if(cont_hits_player2 > 2){
                             System.out.println("\nATENCION!!!");
                             System.out.println("-El jugador 2 a impactado 3 veces un barco enemigo, por lo tanto a ganado.");
                             var = false;
@@ -105,10 +103,12 @@ public class Tarea4_CARLOSFLORES {
                     }//fin case 2
                     
                 }//fin switch
-                
+                if(cont_hits_player2 == 3 || cont_hits_player1 == 3){
+                    var2 = 1;
+                }
             }//fin for
             
-        }while(var = true);//fin while
+        }while(var);//fin while
         
     }//fin main
     
