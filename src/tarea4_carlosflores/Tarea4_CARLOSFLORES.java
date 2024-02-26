@@ -5,7 +5,9 @@ import java.util.Scanner;
 public class Tarea4_CARLOSFLORES {
 
     static Scanner leer = new Scanner(System.in);
-    
+    static int cont_hits_player1;
+    static int cont_hits_player2;
+            
     public static void main(String[] args) {
         boolean var = true;
         
@@ -21,7 +23,9 @@ public class Tarea4_CARLOSFLORES {
         */
         
         do{
-            System.out.println("Bienvenidos/as Battleship\nModo: 2 jugadores");
+            System.out.println("Bienvenidos/as a Battleship\nModo: 2 jugadores\nLes deseo suerte...");
+            cont_hits_player1 = 0;
+            cont_hits_player2 = 0;
             char tabA[][] = spawn_tabA();
             char tabB[][] = spawn_tabB();
             
@@ -30,22 +34,23 @@ public class Tarea4_CARLOSFLORES {
                 if(i % 2 != 0){
                     turno = 2;
                 }
-                System.out.println("\nAL ATAQUE!!!");
                 
                 switch(turno){
                     
                     case 1:{
+                        System.out.println("\nATENCION!!!");
                         System.out.println("Es turno del jugador 1");
-                        System.out.println("COORDENADAS");
+                        if(cont_hits_player1 > 0){
+                            System.out.println("NOTA: El jugador 1 lleva "+cont_hits_player1+" hits.");
+                        }
+                        if(cont_hits_player2 > 0){
+                            System.out.println("NOTA: El jugador 1 lleva "+cont_hits_player2+" hits.");
+                        }
+                        System.out.println("\nCOORDENADAS");
+                        System.out.println("A continuacion ingrese las coordenadas que desea atacar.");
                         System.out.println("NOTA: las fila y columnas se cuentan desde 0");
                         int cord [] = coordenas();
-                        tabB = checkforhit(tabB, cord);
-                        /*for (int j = 0; j < tabB.length; j++) {
-                            for (int k = 0; k < tabB[j].length; k++) {
-                                System.out.print("["+tabB[j][k]+"]");
-                            }
-                            System.out.println("");
-                        }*/
+                        tabB = checkforhit(tabB, cord,turno);
                         char show [][] = tabB;
                         for (int j = 0; j < show.length; j++) {
                             for (int k = 0; k < show[j].length; k++) {
@@ -62,10 +67,18 @@ public class Tarea4_CARLOSFLORES {
                     }
                     
                     case 2:{
+                        System.out.println("\nATENCION!!!");
                         System.out.println("Es turno del jugador 2");
-                        System.out.println("COORDENADAS");
+                        if(cont_hits_player1 > 0){
+                            System.out.println("NOTA: El jugador 1 lleva "+cont_hits_player1+" hits.");
+                        }
+                        if(cont_hits_player2 > 0){
+                            System.out.println("NOTA: El jugador 1 lleva "+cont_hits_player2+" hits.");
+                        }
+                        System.out.println("\nCOORDENADAS");
+                        System.out.println("A continuacion ingrese las coordenadas que desea atacar.");
                         int cord [] = coordenas();
-                        tabA = checkforhit(tabA, cord);
+                        tabA = checkforhit(tabA, cord,turno);
                         char show [][] = tabA;
                         for (int j = 0; j < show.length; j++) {
                             for (int k = 0; k < show[j].length; k++) {
@@ -112,13 +125,18 @@ public class Tarea4_CARLOSFLORES {
         return coordenada;
     }
     
-    public static char [][] checkforhit(char tab [][], int cord [] ){
+    public static char [][] checkforhit(char tab [][], int cord [] , int turno){
         char show [][] = tab;
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 if(i == cord[0] && j == cord[1] && show[i][j] == (char) 42){
                     System.out.println("Uy, un barco ha sido dañado");
                     show[i][j] = (char) 88;
+                    if(turno == 1 ){
+                        cont_hits_player1++;
+                    }else{
+                        cont_hits_player2++;
+                    }
                     break;
                 }else if(i == cord[0] && j == cord[1]){
                     System.out.println("Bomba al agua");
