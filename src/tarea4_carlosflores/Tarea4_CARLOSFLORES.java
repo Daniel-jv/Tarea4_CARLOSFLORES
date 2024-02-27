@@ -21,84 +21,115 @@ public class Tarea4_CARLOSFLORES {
         -SIGUIENTE TURNO ------------------------------|
         -SI SE GOLPEAN 3 PARTES DE LOS BARCOS EL JUGADOR GANA
         */
-        
+        char decis = 's';
         do{
-            System.out.println("Bienvenidos/as a Battleship\nModo: 2 jugadores\nLes deseo suerte...");
-            char tabA[][] = spawn_tabA();//tablero del jugador 1
-            char tabB[][] = spawn_tabB();//tablero del jugador 2
-            int var2 = 0;//cree esta variable para terminar el ciclo for unicamente
-            for (int i = 0;var2 == 0;i++) {
-                int turno = 1;
-                if(i % 2 != 0){
-                    turno = 2;
-                }//decision de turno
-                
-                switch(turno){
-                    
-                    case 1:{
-                        System.out.println("\n---ES TURNO DEL JUGADOR 1---");
-                        char show [][] = tabB;
-                        System.out.println("TABLERO DEL JUGADOR 2");
-                        for (int j = 0; j < show.length; j++) {
-                            for (int k = 0; k < show[j].length; k++) {
-                                if(show[j][k] == (char) 42){
-                                    char esp = (char) 32;
-                                    System.out.print("["+esp+"]");
+            do{
+                System.out.println("Bienvenidos/as a Battleship\nModo: 2 jugadores\nLes deseo suerte...");
+                char tabA[][] = spawn_tabA();//tablero del jugador 1
+                char tabB[][] = spawn_tabB();//tablero del jugador 2
+                int var2 = 0;//cree esta variable para terminar el ciclo for unicamente
+                for (int i = 0;var2 == 0;i++) {
+                    int turno = 1;
+                    if(i % 2 != 0){
+                        turno = 2;
+                    }//decision de turno
+
+                    switch(turno){
+
+                        case 1:{
+                            System.out.println("\n---ES TURNO DEL JUGADOR 1---");
+                            char show [][] = tabB;
+                            System.out.println("TABLERO DEL JUGADOR 2");
+                            for (int j = 0; j < 6; j++) {
+                                if(j == 0){
+                                    System.out.print("  ");
                                 }else{
-                                    System.out.print("["+show[j][k]+"]");
-                                }
+                                    System.out.print(" "+(j-1)+" ");
+                                } 
                             }
-                            System.out.println("");
-                        }
-                        contador_hits();//imprime aciertos de los jugadores
-                        instrucciones_coordenadas();//imprime instrucciones de coordenadas
-                        int cord [] = coordenas();
-                        tabB = checkforhit(tabB, cord,turno);
-                        if(cont_hits_player1 > 2){
-                            System.out.println("\nATENCION!!!");
-                            System.out.println("-El jugador 1 a impactado 3 veces un barco enemigo.");
-                            var = false;
-                        }
-                        break;
-                    }//fin case 1
-                    
-                    case 2:{
-                        System.out.println("\n---ES TURNO DEL JUGADOR 2---");
-                        char show [][] = tabA;
-                        System.out.println("TABLERO DEL JUGADOR 1");
-                        for (int j = 0; j < show.length; j++) {
-                            for (int k = 0; k < show[j].length; k++) {
-                                if(show[j][k] == (char) 42){
-                                    char esp = (char) 32;
-                                    System.out.print("["+esp+"]");
+                            System.out.println();
+                            for (int j = 0; j < show.length; j++) {
+                                System.out.print(j+" ");
+                                for (int k = 0; k < show[j].length; k++) {
+                                    if(show[j][k] == (char) 42){
+                                        char esp = (char) 32;
+                                        System.out.print("["+esp+"]");
+                                    }else{
+                                        System.out.print("["+show[j][k]+"]");
+                                    }
+                                }
+                                System.out.println("");
+                            }
+                            contador_hits();//imprime aciertos de los jugadores
+                            instrucciones_coordenadas();//imprime instrucciones de coordenadas
+                            int cord [] = coordenas();
+                            tabB = checkforhit(tabB, cord,turno);
+                            if(cont_hits_player1 > 2){
+                                System.out.println("\nATENCION!!!");
+                                System.out.println("-El jugador 1 a impactado 3 veces un barco enemigo.");
+                                var = false;
+                            }
+                            break;
+                        }//fin case 1
+
+                        case 2:{
+                            System.out.println("\n---ES TURNO DEL JUGADOR 2---");
+                            char show [][] = tabA;
+                            System.out.println("TABLERO DEL JUGADOR 1");
+                            for (int j = 0; j < 6; j++) {
+                                if(j == 0){
+                                    System.out.print("  ");
                                 }else{
-                                    System.out.print("["+show[j][k]+"]");
-                                }
+                                    System.out.print(" "+(j-1)+" ");
+                                } 
                             }
-                            System.out.println("");
-                        }
-                        contador_hits();//imprime aciertos de los jugadores
-                        instrucciones_coordenadas();//imprime instrucciones de coordenadas
-                        int cord [] = coordenas();
-                        tabA = checkforhit(tabA, cord,turno);
-                        if(cont_hits_player2 > 2){
-                            System.out.println("\nATENCION!!!");
-                            System.out.println("-El jugador 2 a impactado 3 veces un barco enemigo.");
-                            var = false;
-                        }
-                        break;
-                    }//fin case 2
-                    
-                }//fin switch
-                if(cont_hits_player2 == 3 || cont_hits_player1 == 3){
-                    var2 = 1;
-                }
-            }//fin for
+                            System.out.println();
+                            for (int j = 0; j < show.length; j++) {
+                                System.out.print(j+" ");
+                                for (int k = 0; k < show[j].length; k++) {
+                                    if(show[j][k] == (char) 42){
+                                        char esp = (char) 32;
+                                        System.out.print("["+esp+"]");
+                                    }else{
+                                        System.out.print("["+show[j][k]+"]");
+                                    }
+                                }
+                                System.out.println("");
+                            }
+                            contador_hits();//imprime aciertos de los jugadores
+                            instrucciones_coordenadas();//imprime instrucciones de coordenadas
+                            int cord [] = coordenas();
+                            tabA = checkforhit(tabA, cord,turno);
+                            if(cont_hits_player2 > 2){
+                                System.out.println("\nATENCION!!!");
+                                System.out.println("-El jugador 2 a impactado 3 veces un barco enemigo.");
+                                var = false;
+                            }
+                            break;
+                        }//fin case 2
+
+                    }//fin switch
+                    if(cont_hits_player2 == 3 || cont_hits_player1 == 3){
+                        var2 = 1;
+                    }
+                }//fin for
+
+            }while(var);//fin while
+
+            felicidades();
             
-        }while(var);//fin while
+            System.out.print("\n¿Desean jugar otra vez?[S/N]: ");
+            decis = leer.next().charAt(0);
+            while(decis != 's' && decis != 'S' && decis != 'n' && decis != 'N'){
+                System.out.print("[S/N]:");
+                decis = leer.next().charAt(0);
+            }
+            System.out.println("\n");
+        }while(decis == 'S' || decis == 's');
         
-        felicidades();
-        
+        if(decis == 'N' || decis == 'n'){
+            System.out.println("\nATENCION!!!\nSalieron del juego...");
+        }
     }//fin main
     
     public static void felicidades(){
@@ -116,15 +147,13 @@ public class Tarea4_CARLOSFLORES {
             System.out.println("NOTA: El jugador 1 lleva "+cont_hits_player1+" hits.");
         }
         if(cont_hits_player2 > 0){
-            System.out.println("NOTA: El jugador 1 lleva "+cont_hits_player2+" hits.");
+            System.out.println("NOTA: El jugador 2 lleva "+cont_hits_player2+" hits.");
         }
     }//fin contador_hits
     
     public static void instrucciones_coordenadas(){//metodo para imprimir intrucciones de coordenadas
         System.out.println("\n---COORDENADAS");
         System.out.println("A continuacion ingrese las coordenadas que desea atacar.");
-        System.out.println("NOTA: Las filas y columnas se cuentan desde 0.");
-        System.out.println("NOTA: El maximo rango de las filas es 5 y de las columnas es 4.");
     }//fin instrucciones_coordenadas
     
     public static int[] coordenas(){//metodo que lee y verifica coordenadas
@@ -155,11 +184,11 @@ public class Tarea4_CARLOSFLORES {
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 if(i == cord[0] && j == cord[1] && show[i][j] == (char) 88){
-                    System.out.println("---Bomba al agua---");
+                    System.out.println("\n---Bomba al agua---");
                     System.out.println("ATENCION!!!");
                     System.out.println("NOTA: Ya habias arrojado una bomba en estas coordenadas, desperdiciaste tu turno, prueba con otras coordenadas.");
                 }else if(i == cord[0] && j == cord[1] && show[i][j] == (char) 42){
-                    System.out.println("---Uy, un barco ha sido dañado---\nAcertaste la ubicacion de uno de los barcos enemigos.");
+                    System.out.println("\n---Uy, un barco ha sido dañado---\nAcertaste la ubicacion de uno de los barcos enemigos.");
                     show[i][j] = (char) 88;
                     if(turno == 1 ){
                         cont_hits_player1++;
@@ -168,7 +197,7 @@ public class Tarea4_CARLOSFLORES {
                     }
                     break;
                 }else if(i == cord[0] && j == cord[1]){
-                    System.out.println("---Bomba al agua---\nHas fallado, intenta nuevamente en el siguiente turno.");
+                    System.out.println("\n---Bomba al agua---\nHas fallado, intenta nuevamente en el siguiente turno.");
                     show[i][j] = (char) 88;
                     break;
                 }
