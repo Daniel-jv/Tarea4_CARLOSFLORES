@@ -44,8 +44,8 @@ public class Tarea4_CARLOSFLORES {
                                                 System.out.print("  ");
                                             }else{
                                                 System.out.print(" "+(j-1)+" ");
-                                            } 
-                                        }
+                                            }//fin else
+                                        }//fin for
                                         System.out.println();
                                         for (int j = 0; j < show.length; j++) {
                                             System.out.print(j+" ");
@@ -55,10 +55,10 @@ public class Tarea4_CARLOSFLORES {
                                                     System.out.print("["+esp+"]");
                                                 }else{
                                                     System.out.print("["+show[j][k]+"]");
-                                                }
-                                            }
+                                                }//fin else
+                                            }//fin for
                                             System.out.println("");
-                                        }
+                                        }//fin for
                                         contador_hits();//imprime aciertos de los jugadores
                                         instrucciones_coordenadas();//imprime instrucciones de coordenadas
                                         int cord [] = coordenas();
@@ -77,7 +77,7 @@ public class Tarea4_CARLOSFLORES {
                                             }else{
                                                 System.out.print(" "+(j-1)+" ");
                                             } 
-                                        }
+                                        }//fin for
                                         System.out.println();
                                         for (int j = 0; j < show.length; j++) {
                                             System.out.print(j+" ");
@@ -87,10 +87,10 @@ public class Tarea4_CARLOSFLORES {
                                                     System.out.print("["+esp+"]");
                                                 }else{
                                                     System.out.print("["+show[j][k]+"]");
-                                                }
-                                            }
+                                                }//fin else
+                                            }//fin for
                                             System.out.println("");
-                                        }
+                                        }//fin for
                                         contador_hits();//imprime aciertos de los jugadores
                                         instrucciones_coordenadas();//imprime instrucciones de coordenadas
                                         int cord [] = coordenas();
@@ -114,56 +114,68 @@ public class Tarea4_CARLOSFLORES {
                         while(decis != 's' && decis != 'S' && decis != 'n' && decis != 'N'){
                             System.out.print("[S/N]:");
                             decis = leer.next().charAt(0);
-                        }
-                    }while(decis == 'S' || decis == 's');
+                        }//fin while
+                    }while(decis == 'S' || decis == 's');//fin do while
 
                     if(decis == 'N' || decis == 'n'){
                         System.out.println("\nATENCION!!!\nSalieron del juego...");
-                    }
+                    }//fin if
                     System.out.println();
                     break;
                 }//fin battleship/case1
 
                 case 2:{
                     System.out.println("\nBienvenido/a a Busca Minas\nModo: Dinamico\nTe deseo suerte...");
-                    lifeline = true;
-                    char tab [][] = spawn_buscaminas();
-                    char show [][] = tab;
-                    for (int i = 1; i < 11; i++) {
-                        System.out.println("\n---TURNO "+i);
-                        for (int j = 0; j < 7; j++) {
-                            if(j == 0){
-                                System.out.print("  ");
-                            }else{
-                                System.out.print(" "+(j-1)+" ");
-                            } 
-                        }
-                        System.out.println();
-                        for (int j = 0; j < show.length; j++) {
-                            System.out.print(j+" ");
-                            for (int k = 0; k < show[j].length; k++) {
-                                if(show[j][k] == (char) 42){
-                                    char esp = (char) 32;
-                                    System.out.print("["+esp+"]");
+                    do{
+                        lifeline = true;
+                        char tab [][] = spawn_buscaminas();
+                        char show [][] = tab;
+                        for (int i = 1; i < 11; i++) {
+                            System.out.println("\n---TURNO "+i);
+                            for (int j = 0; j < 7; j++) {
+                                if(j == 0){
+                                    System.out.print("  ");
                                 }else{
-                                    System.out.print("["+show[j][k]+"]");
-                                }
-                            }
-                            System.out.println("");
-                        }
-                        instrucciones_coordenadas();
-                        int cords [] = coordenas_buscaminas();
-                        checkforhit_buscaminas(show,cords);
-                        if(lifeline == false){
-                            System.out.println("\n¡¡¡ATENCION!!!");
-                            System.out.println("Has Perdido");
-                            break;
-                        }else if(i == 10 && lifeline){
-                            System.out.println("\n¡¡¡FELICIDADES JUGADOR!!!");
-                            System.out.println("Has Ganado");
-                            break;
-                        }
-                    }
+                                    System.out.print(" "+(j-1)+" ");
+                                }//fin else 
+                            }//fin for
+                            System.out.println();
+                            for (int j = 0; j < show.length; j++) {
+                                System.out.print(j+" ");
+                                for (int k = 0; k < show[j].length; k++) {
+                                    if(show[j][k] == (char) 42){
+                                        char esp = (char) 32;
+                                        System.out.print("["+esp+"]");
+                                    }else{
+                                        System.out.print("["+show[j][k]+"]");
+                                    }
+                                }//fin for
+                                System.out.println("");
+                            }//fin for
+                            instrucciones_coordenadas();
+                            int cords [] = coordenas_buscaminas();
+                            checkforhit_buscaminas(show,cords);
+                            if(lifeline == false){
+                                System.out.println("\n¡¡¡ATENCION!!!");
+                                System.out.println("Has Perdido, intentalo nuevamente si puedes...");
+                                break;
+                            }else if(i == 10 && lifeline){
+                                System.out.println("\n¡¡¡FELICIDADES JUGADOR!!!");
+                                System.out.println("Has Ganado");
+                                break;
+                            }//fin else if
+                        }//fin for
+                        System.out.print("\n¿Desean jugar otra vez?[S/N]: ");
+                        decis = leer.next().charAt(0);
+                        while(decis != 's' && decis != 'S' && decis != 'n' && decis != 'N'){
+                            System.out.print("[S/N]:");
+                            decis = leer.next().charAt(0);
+                        }//fin while
+                    }while(decis == 'S' || decis == 's');//fin do while
+                    
+                    if(decis == 'N' || decis == 'n'){
+                        System.out.println("\nATENCION!!!\nSalieron del juego...");
+                    }//fin if
                     System.out.println();
                     break;
                 }//fin buscaminas/case2
@@ -355,7 +367,7 @@ public class Tarea4_CARLOSFLORES {
                         cord = coordenas_buscaminas();
                         if(i == cord[0] && j == cord[1] && show[i][j] == (char) 88){
                             System.out.println("ATENCION!!!");
-                            System.out.println("NOTA: Ya verificaste esa posicion, porfavor ingresa otra coordenada");
+                            System.out.println("NOTA: Ya verificaste esa posicion, porfavor ingresa otra coordenada\n\n");
                         }else{
                             recheck = false;
                         }
