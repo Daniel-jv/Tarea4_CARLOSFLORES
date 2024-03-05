@@ -10,109 +10,147 @@ public class Tarea4_CARLOSFLORES {
     static boolean var = true;        
     
     public static void main(String[] args) {
-        
-        char decis = 's';
-        do{
-            do{
-                System.out.println("Bienvenidos/as a Battleship\nModo: 2 jugadores\nLes deseo suerte...");
-                char tabA[][] = spawn_tabA();//tablero del jugador 1
-                char tabB[][] = spawn_tabB();//tablero del jugador 2
-                cont_hits_player1 = 0;
-                cont_hits_player2 = 0;
-                int var2 = 0;//cree esta variable para terminar el ciclo for unicamente
-                for (int i = 0;var2 == 0;i++) {
-                    int turno = 1;
-                    if(i % 2 != 0){
-                        turno = 2;
-                    }//decision de turno
+        boolean play = true;
+        while(play){
+            char decis = 's';
+            System.out.print("---MENU---\n1.Battleship\n2.Busca minas\n3.Salir\nIngrese una opcion:");
+            int op = leer.nextInt();
+            switch(op){
 
-                    switch(turno){
+                case 1:{
+                    do{
+                        do{
+                            System.out.println("\nBienvenidos/as a Battleship\nModo: 2 jugadores\nLes deseo suerte...");
+                            char tabA[][] = spawn_tabA();//tablero del jugador 1
+                            char tabB[][] = spawn_tabB();//tablero del jugador 2
+                            cont_hits_player1 = 0;
+                            cont_hits_player2 = 0;
+                            int var2 = 0;//cree esta variable para terminar el ciclo for unicamente
+                            for (int i = 0;var2 == 0;i++) {
+                                int turno = 1;
+                                if(i % 2 != 0){
+                                    turno = 2;
+                                }//decision de turno
 
-                        case 1:{
-                            System.out.println("\n---ES TURNO DEL JUGADOR 1---");
-                            char show [][] = tabB;
-                            System.out.println("TABLERO DEL JUGADOR 2");
-                            for (int j = 0; j < 6; j++) {
-                                if(j == 0){
-                                    System.out.print("  ");
-                                }else{
-                                    System.out.print(" "+(j-1)+" ");
-                                } 
-                            }
-                            System.out.println();
-                            for (int j = 0; j < show.length; j++) {
-                                System.out.print(j+" ");
-                                for (int k = 0; k < show[j].length; k++) {
-                                    if(show[j][k] == (char) 42){
-                                        char esp = (char) 32;
-                                        System.out.print("["+esp+"]");
-                                    }else{
-                                        System.out.print("["+show[j][k]+"]");
-                                    }
+                                switch(turno){
+
+                                    case 1:{
+                                        System.out.println("\n---ES TURNO DEL JUGADOR 1---");
+                                        char show [][] = tabB;
+                                        System.out.println("TABLERO DEL JUGADOR 2");
+                                        for (int j = 0; j < 6; j++) {
+                                            if(j == 0){
+                                                System.out.print("  ");
+                                            }else{
+                                                System.out.print(" "+(j-1)+" ");
+                                            } 
+                                        }
+                                        System.out.println();
+                                        for (int j = 0; j < show.length; j++) {
+                                            System.out.print(j+" ");
+                                            for (int k = 0; k < show[j].length; k++) {
+                                                if(show[j][k] == (char) 42){
+                                                    char esp = (char) 32;
+                                                    System.out.print("["+esp+"]");
+                                                }else{
+                                                    System.out.print("["+show[j][k]+"]");
+                                                }
+                                            }
+                                            System.out.println("");
+                                        }
+                                        contador_hits();//imprime aciertos de los jugadores
+                                        instrucciones_coordenadas();//imprime instrucciones de coordenadas
+                                        int cord [] = coordenas();
+                                        tabB = checkforhit(tabB, cord,turno);
+                                        var = winner(turno);//muestra mensaje de ganador
+                                        break;
+                                    }//fin case 1
+
+                                    case 2:{
+                                        System.out.println("\n---ES TURNO DEL JUGADOR 2---");
+                                        char show [][] = tabA;
+                                        System.out.println("TABLERO DEL JUGADOR 1");
+                                        for (int j = 0; j < 6; j++) {
+                                            if(j == 0){
+                                                System.out.print("  ");
+                                            }else{
+                                                System.out.print(" "+(j-1)+" ");
+                                            } 
+                                        }
+                                        System.out.println();
+                                        for (int j = 0; j < show.length; j++) {
+                                            System.out.print(j+" ");
+                                            for (int k = 0; k < show[j].length; k++) {
+                                                if(show[j][k] == (char) 42){
+                                                    char esp = (char) 32;
+                                                    System.out.print("["+esp+"]");
+                                                }else{
+                                                    System.out.print("["+show[j][k]+"]");
+                                                }
+                                            }
+                                            System.out.println("");
+                                        }
+                                        contador_hits();//imprime aciertos de los jugadores
+                                        instrucciones_coordenadas();//imprime instrucciones de coordenadas
+                                        int cord [] = coordenas();
+                                        tabA = checkforhit(tabA, cord,turno);
+                                        var = winner(turno);//muestra mensaje de ganador
+                                        break;
+                                    }//fin case 2
+
+                                }//fin switch
+                                if(cont_hits_player2 == 3 || cont_hits_player1 == 3){
+                                    var2 = 1;
                                 }
-                                System.out.println("");
-                            }
-                            contador_hits();//imprime aciertos de los jugadores
-                            instrucciones_coordenadas();//imprime instrucciones de coordenadas
-                            int cord [] = coordenas();
-                            tabB = checkforhit(tabB, cord,turno);
-                            var = winner(turno);//muestra mensaje de ganador
-                            break;
-                        }//fin case 1
+                            }//fin for
 
-                        case 2:{
-                            System.out.println("\n---ES TURNO DEL JUGADOR 2---");
-                            char show [][] = tabA;
-                            System.out.println("TABLERO DEL JUGADOR 1");
-                            for (int j = 0; j < 6; j++) {
-                                if(j == 0){
-                                    System.out.print("  ");
-                                }else{
-                                    System.out.print(" "+(j-1)+" ");
-                                } 
-                            }
-                            System.out.println();
-                            for (int j = 0; j < show.length; j++) {
-                                System.out.print(j+" ");
-                                for (int k = 0; k < show[j].length; k++) {
-                                    if(show[j][k] == (char) 42){
-                                        char esp = (char) 32;
-                                        System.out.print("["+esp+"]");
-                                    }else{
-                                        System.out.print("["+show[j][k]+"]");
-                                    }
-                                }
-                                System.out.println("");
-                            }
-                            contador_hits();//imprime aciertos de los jugadores
-                            instrucciones_coordenadas();//imprime instrucciones de coordenadas
-                            int cord [] = coordenas();
-                            tabA = checkforhit(tabA, cord,turno);
-                            var = winner(turno);//muestra mensaje de ganador
-                            break;
-                        }//fin case 2
+                        }while(var);//fin while
 
-                    }//fin switch
-                    if(cont_hits_player2 == 3 || cont_hits_player1 == 3){
-                        var2 = 1;
+                        felicidades();
+
+                        System.out.print("\n¿Desean jugar otra vez?[S/N]: ");
+                        decis = leer.next().charAt(0);
+                        while(decis != 's' && decis != 'S' && decis != 'n' && decis != 'N'){
+                            System.out.print("[S/N]:");
+                            decis = leer.next().charAt(0);
+                        }
+                    }while(decis == 'S' || decis == 's');
+
+                    if(decis == 'N' || decis == 'n'){
+                        System.out.println("\nATENCION!!!\nSalieron del juego...");
                     }
-                }//fin for
+                    System.out.println();
+                    break;
+                }//fin battleship/case1
 
-            }while(var);//fin while
+                case 2:{
+                    System.out.println("\nBienvenido/a a Busca Minas\nModo: Dinamico\nTe deseo suerte...");
+                    char tab [][] = spawn_buscaminas();
+                    for (int i = 0; i < tab.length; i++) {
+                        for (int j = 0; j < tab[i].length; j++) {
+                            System.out.print("["+tab[i][j]+"]");
+                        }
+                        System.out.println();
+                    }
+                    System.out.println();
+                    break;
+                }//fin buscaminas/case2
 
-            felicidades();
-            
-            System.out.print("\n¿Desean jugar otra vez?[S/N]: ");
-            decis = leer.next().charAt(0);
-            while(decis != 's' && decis != 'S' && decis != 'n' && decis != 'N'){
-                System.out.print("[S/N]:");
-                decis = leer.next().charAt(0);
-            }
-        }while(decis == 'S' || decis == 's');
+                case 3:{
+                    System.out.println("\nHa salido del programa, nos vemos...");
+                    play = false;
+                    break;
+                }//fin case3
+
+                default:{
+                    System.out.println("Opcion no valida\n");
+                    break;
+                }//fin default
+
+            }//fin switch
+
+        }//fin while
         
-        if(decis == 'N' || decis == 'n'){
-            System.out.println("\nATENCION!!!\nSalieron del juego...");
-        }
     }//fin main
     
     public static int[] coordenas(){//metodo que lee y verifica coordenadas
@@ -226,5 +264,27 @@ public class Tarea4_CARLOSFLORES {
         }
         return winner;
     }//fin winner
+    
+    public static char [][] spawn_buscaminas(){
+        char tab [][] = new char [5][5];
+        int cont_bombs = 0;
+        while(cont_bombs != 5){
+            cont_bombs = 0;
+            for (int i = 0; i < tab.length; i++) {
+                int ver = 0;
+                for (int j = 0; j < tab[i].length; j++) {
+                    double activate = Math.random();
+                    if(activate < 0.3 && cont_bombs < 5 && ver < 1){
+                        tab[i][j] = '*';
+                        cont_bombs++;
+                        ver++;
+                    }else{
+                        tab[i][j] = ' ';
+                    }
+                }
+            }
+        }
+        return tab;
+    }//spawn_buscaminas
     
 }//fin class 
