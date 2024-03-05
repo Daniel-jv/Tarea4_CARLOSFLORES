@@ -8,12 +8,13 @@ public class Tarea4_CARLOSFLORES {
     static int cont_hits_player1;
     static int cont_hits_player2;
     static boolean var = true;        
+    static boolean lifeline = true;
     
     public static void main(String[] args) {
         boolean play = true;
         while(play){
             char decis = 's';
-            System.out.print("---MENU---\n1.Battleship\n2.Busca minas\n3.Salir\nIngrese una opcion:");
+            System.out.print("---MENU---\n1.Battleship\n2.Busca minas\n3.Salir\nIngrese una opcion: ");
             int op = leer.nextInt();
             switch(op){
 
@@ -125,12 +126,43 @@ public class Tarea4_CARLOSFLORES {
 
                 case 2:{
                     System.out.println("\nBienvenido/a a Busca Minas\nModo: Dinamico\nTe deseo suerte...");
+                    lifeline = true;
                     char tab [][] = spawn_buscaminas();
-                    for (int i = 0; i < tab.length; i++) {
-                        for (int j = 0; j < tab[i].length; j++) {
-                            System.out.print("["+tab[i][j]+"]");
+                    char show [][] = tab;
+                    for (int i = 1; i < 11; i++) {
+                        System.out.println("\n---TURNO "+i);
+                        for (int j = 0; j < 7; j++) {
+                            if(j == 0){
+                                System.out.print("  ");
+                            }else{
+                                System.out.print(" "+(j-1)+" ");
+                            } 
                         }
                         System.out.println();
+                        for (int j = 0; j < show.length; j++) {
+                            System.out.print(j+" ");
+                            for (int k = 0; k < show[j].length; k++) {
+                                if(show[j][k] == (char) 42){
+                                    char esp = (char) 32;
+                                    System.out.print("["+esp+"]");
+                                }else{
+                                    System.out.print("["+show[j][k]+"]");
+                                }
+                            }
+                            System.out.println("");
+                        }
+                        instrucciones_coordenadas();
+                        int cords [] = coordenas_buscaminas();
+                        checkforhit_buscaminas(show,cords);
+                        if(lifeline == false){
+                            System.out.println("\n¡¡¡ATENCION!!!");
+                            System.out.println("Has Perdido");
+                            break;
+                        }else if(i == 10 && lifeline){
+                            System.out.println("\n¡¡¡FELICIDADES JUGADOR!!!");
+                            System.out.println("Has Ganado");
+                            break;
+                        }
                     }
                     System.out.println();
                     break;
@@ -160,7 +192,7 @@ public class Tarea4_CARLOSFLORES {
             System.out.print("Fila: ");
             fila = leer.nextInt();
             if(fila > 5){
-                System.out.println("La fila tiene que ser menor a 5, intente de nuevo.");
+                System.out.println("La fila tiene que ser menor a 6, intente de nuevo.");
             }
         }
         coordenada[0] = fila;
@@ -169,7 +201,7 @@ public class Tarea4_CARLOSFLORES {
             System.out.print("Columna: ");
             columna = leer.nextInt();
             if(columna > 4){
-                System.out.println("La columna tiene que ser menor a 4, intente de nuevo.");
+                System.out.println("La columna tiene que ser menor a 5, intente de nuevo.");
             }
         }
         coordenada[1] = columna;
@@ -266,7 +298,7 @@ public class Tarea4_CARLOSFLORES {
     }//fin winner
     
     public static char [][] spawn_buscaminas(){
-        char tab [][] = new char [5][5];
+        char tab [][] = new char [6][6];
         int cont_bombs = 0;
         while(cont_bombs != 5){
             cont_bombs = 0;
@@ -286,5 +318,61 @@ public class Tarea4_CARLOSFLORES {
         }
         return tab;
     }//spawn_buscaminas
+    
+    public static int[] coordenas_buscaminas(){//metodo que lee y verifica coordenadas
+        int coordenada [] = new int [2];
+        int fila = -1;
+        while(fila > 5 || fila < 0){
+            System.out.print("Fila: ");
+            fila = leer.nextInt();
+            if(fila > 5){
+                System.out.println("La fila tiene que ser menor a 6, intente de nuevo.");
+            }
+        }
+        coordenada[0] = fila;
+        int columna = -1;
+        while(columna > 5 || columna < 0){
+            System.out.print("Columna: ");
+            columna = leer.nextInt();
+            if(columna > 4){
+                System.out.println("La columna tiene que ser menor a 6, intente de nuevo.");
+            }
+        }
+        coordenada[1] = columna;
+        return coordenada;
+    }//fin coordenadas
+    
+    public static char [][] checkforhit_buscaminas(char tab [][], int cord []){//metodo que verifica si el jugador golpeo un barco
+        char show [][] = tab;
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                if(i == cord[0] && j == cord[1] && show[i][j] == (char) 88){
+                    System.out.println("ATENCION!!!");
+                    System.out.println("NOTA: Ya verificaste esa posicion, porfavor ingresa otra coordenada");
+                    boolean recheck = true;
+                    while(recheck){
+                        System.out.println("---Coordenadas\nIngrese nuevas coordenadas");
+                        cord = coordenas_buscaminas();
+                        if(i == cord[0] && j == cord[1] && show[i][j] == (char) 88){
+                            System.out.println("ATENCION!!!");
+                            System.out.println("NOTA: Ya verificaste esa posicion, porfavor ingresa otra coordenada");
+                        }else{
+                            recheck = false;
+                        }
+                    }
+                }else if(i == cord[0] && j == cord[1] && show[i][j] == (char) 42){
+                    System.out.println("\n---BOOM---\nQue mala suerte...");
+                    show[i][j] = (char) 88;
+                    lifeline = false;
+                    break;
+                }else if(i == cord[0] && j == cord[1]){
+                    System.out.println("\n---Uff, no erá una bomba---\nTe salvaste de momento.");
+                    show[i][j] = (char) 88;
+                    break;
+                }
+            }
+        }
+        return show;
+    }
     
 }//fin class 
