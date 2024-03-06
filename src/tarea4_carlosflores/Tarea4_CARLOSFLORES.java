@@ -264,7 +264,7 @@ public class Tarea4_CARLOSFLORES {
         if(cont_hits_player1 == 3){
             System.out.println("\n¡¡¡FELICIDADES JUGADOR 1!!!");
             System.out.println("Has Ganado");
-            System.out.println("NOTA: Hit");
+            System.out.println("NOTA: H = Hit");
             System.out.println("TABLERO DEL JUGADOR 2");
             for (int i = 0; i < tab2.length; i++) {
                 for (int j = 0; j < tab2[i].length; j++) {
@@ -280,7 +280,7 @@ public class Tarea4_CARLOSFLORES {
         }else if(cont_hits_player2 == 3){
             System.out.println("\n¡¡¡FELICIDADES JUGADOR 2!!!");
             System.out.println("Has Ganado");
-            System.out.println("NOTA: Hit");
+            System.out.println("NOTA: H = Hit");
             System.out.println("TABLERO DEL JUGADOR 1");
             for (int i = 0; i < tab1.length; i++) {
                 for (int j = 0; j < tab1[i].length; j++) {
