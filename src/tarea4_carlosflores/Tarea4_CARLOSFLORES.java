@@ -20,11 +20,13 @@ public class Tarea4_CARLOSFLORES {
 
                 case 1:{
                     do{
-                        
+                        int cont = 1;
                         do{
                             System.out.println("\nBienvenidos/as a Battleship\nModo: 2 jugadores\nLes deseo suerte...");
                             char tabA[][] = spawn_tabA();//tablero del jugador 1
                             char tabB[][] = spawn_tabB();//tablero del jugador 2
+                            char tab1[][] = spawn_tabA();
+                            char tab2[][] = spawn_tabB();
                             cont_hits_player1 = 0;
                             cont_hits_player2 = 0;
                             int var2 = 0;//cree esta variable para terminar el ciclo for unicamente
@@ -106,7 +108,7 @@ public class Tarea4_CARLOSFLORES {
                                 }
                             }//fin for
 
-                            felicidades(tabA,tabB);
+                            felicidades(tabA,tabB,tab1,tab2);
                         }while(var);//fin while
 
 
@@ -258,24 +260,36 @@ public class Tarea4_CARLOSFLORES {
         return tabB;
     }//fin spawn_tabB
     
-    public static void felicidades(char tab1 [][], char tab2 [][]){
+    public static void felicidades(char tab1 [][], char tab2 [][], char tabA [][], char tabB [][] ){
         if(cont_hits_player1 == 3){
             System.out.println("\n¡¡¡FELICIDADES JUGADOR 1!!!");
             System.out.println("Has Ganado");
+            System.out.println("NOTA: Hit");
             System.out.println("TABLERO DEL JUGADOR 2");
             for (int i = 0; i < tab2.length; i++) {
                 for (int j = 0; j < tab2[i].length; j++) {
-                    System.out.print("["+tab2[i][j]+"]");
+                    if(tabB[i][j] == (char) 42 && tab2[i][j] == (char) 88){
+                        char h = (char) 72;
+                        System.out.print("["+h+"]");
+                    }else{
+                        System.out.print("["+tab2[i][j]+"]");
+                    }
                 }
                 System.out.println();
             }
         }else if(cont_hits_player2 == 3){
             System.out.println("\n¡¡¡FELICIDADES JUGADOR 2!!!");
             System.out.println("Has Ganado");
+            System.out.println("NOTA: Hit");
             System.out.println("TABLERO DEL JUGADOR 1");
             for (int i = 0; i < tab1.length; i++) {
                 for (int j = 0; j < tab1[i].length; j++) {
-                    System.out.print("["+tab1[i][j]+"]");
+                    if(tabA[i][j] == (char) 42 && tab1[i][j] == (char) 88){
+                        char h = (char) 72;
+                        System.out.print("["+h+"]");
+                    }else{
+                        System.out.print("["+tab2[i][j]+"]");
+                    }
                 }
                 System.out.println();
             }
