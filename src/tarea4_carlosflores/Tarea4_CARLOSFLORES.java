@@ -20,6 +20,7 @@ public class Tarea4_CARLOSFLORES {
 
                 case 1:{
                     do{
+                        
                         do{
                             System.out.println("\nBienvenidos/as a Battleship\nModo: 2 jugadores\nLes deseo suerte...");
                             char tabA[][] = spawn_tabA();//tablero del jugador 1
@@ -61,8 +62,8 @@ public class Tarea4_CARLOSFLORES {
                                         }//fin for
                                         contador_hits();//imprime aciertos de los jugadores
                                         instrucciones_coordenadas();//imprime instrucciones de coordenadas
-                                        int cord [] = coordenas();
-                                        tabB = checkforhit(tabB, cord,turno);
+                                        int cord [] = coordenas();//arreglo para guardar las coordenadas
+                                        tabB = checkforhit(tabB, cord,turno);//revisa si habia un barco o fue bomba al agua
                                         var = winner(turno);//muestra mensaje de ganador
                                         break;
                                     }//fin case 1
@@ -93,8 +94,8 @@ public class Tarea4_CARLOSFLORES {
                                         }//fin for
                                         contador_hits();//imprime aciertos de los jugadores
                                         instrucciones_coordenadas();//imprime instrucciones de coordenadas
-                                        int cord [] = coordenas();
-                                        tabA = checkforhit(tabA, cord,turno);
+                                        int cord [] = coordenas();//arreglo para guardar las coordenadas
+                                        tabA = checkforhit(tabA, cord,turno);//revisa si habia un barco o fue bomba al agua
                                         var = winner(turno);//muestra mensaje de ganador
                                         break;
                                     }//fin case 2
@@ -105,9 +106,9 @@ public class Tarea4_CARLOSFLORES {
                                 }
                             }//fin for
 
+                            felicidades(tabA,tabB);
                         }while(var);//fin while
 
-                        felicidades();
 
                         System.out.print("\n¿Desean jugar otra vez?[S/N]: ");
                         decis = leer.next().charAt(0);
@@ -126,40 +127,20 @@ public class Tarea4_CARLOSFLORES {
 
                 case 2:{
                     System.out.println("\nBienvenido/a a Busca Minas\nModo: Dinamico\nTe deseo suerte...");
-                    System.out.println("\nNOTA: Ganas tras sobrevivir 10 rondas...");
+                    System.out.println("NOTA: Ganas tras sobrevivir 10 rondas...");
                     do{
                         lifeline = true;
                         char tab [][] = spawn_buscaminas();
                         char show [][] = tab;
                         for (int i = 1; i < 11; i++) {
                             System.out.println("\n---TURNO "+i);
-                            for (int j = 0; j < 7; j++) {
-                                if(j == 0){
-                                    System.out.print("  ");
-                                }else{
-                                    System.out.print(" "+(j-1)+" ");
-                                }//fin else 
-                            }//fin for
-                            System.out.println();
-                            for (int j = 0; j < show.length; j++) {
-                                System.out.print(j+" ");
-                                for (int k = 0; k < show[j].length; k++) {
-                                    if(show[j][k] == (char) 42){
-                                        char esp = (char) 32;
-                                        System.out.print("["+esp+"]");
-                                    }else{
-                                        System.out.print("["+show[j][k]+"]");
-                                    }
-                                }//fin for
-                                System.out.println("");
-                            }//fin for
-                            instrucciones_coordenadas();
-                            int cords [] = coordenas_buscaminas();
-                            checkforhit_buscaminas(show,cords, i);
+                            imprimir_tab_actual(show);
+                            instrucciones_coordenadas();//imprime instrucciones de coordenadas
+                            int cords [] = coordenas_buscaminas();//arreglo para guardar las coordenadas
+                            checkforhit_buscaminas(show,cords, i);//revisa si habia una mina en las coordenadas
                             if(lifeline == false){
-                                int casi = 10 - i;
-                                System.out.println("\n¡¡¡ATENCION!!!");
-                                System.out.println("Has Perdido, intentalo nuevamente si puedes...\nNOTA: sobr a "+casi+" rondas de sobrevivir...");
+                                System.out.println("Has Perdido, intentalo nuevamente si puedes...\nNOTA: Sobreviviste "+i+" rondas...");
+                                imprimir_tab_perdiste(show, cords);//imprime tablero con minas
                                 break;
                             }else if(i == 10 && lifeline){
                                 System.out.println("\n¡¡¡FELICIDADES JUGADOR!!!");
@@ -277,13 +258,27 @@ public class Tarea4_CARLOSFLORES {
         return tabB;
     }//fin spawn_tabB
     
-    public static void felicidades(){
+    public static void felicidades(char tab1 [][], char tab2 [][]){
         if(cont_hits_player1 == 3){
             System.out.println("\n¡¡¡FELICIDADES JUGADOR 1!!!");
             System.out.println("Has Ganado");
+            System.out.println("TABLERO DEL JUGADOR 2");
+            for (int i = 0; i < tab2.length; i++) {
+                for (int j = 0; j < tab2[i].length; j++) {
+                    System.out.print("["+tab2[i][j]+"]");
+                }
+                System.out.println();
+            }
         }else if(cont_hits_player2 == 3){
             System.out.println("\n¡¡¡FELICIDADES JUGADOR 2!!!");
             System.out.println("Has Ganado");
+            System.out.println("TABLERO DEL JUGADOR 1");
+            for (int i = 0; i < tab1.length; i++) {
+                for (int j = 0; j < tab1[i].length; j++) {
+                    System.out.print("["+tab1[i][j]+"]");
+                }
+                System.out.println();
+            }
         }
     }//fin felicidades
     
@@ -375,7 +370,7 @@ public class Tarea4_CARLOSFLORES {
                         }
                     }
                 }else if(i == cord[0] && j == cord[1] && show[i][j] == (char) 42){
-                    System.out.println("\n---BOOM\nQue mala suerte...");
+                    System.out.println("\n---BOOM");
                     show[i][j] = (char) 88;
                     lifeline = false;
                     break;
@@ -387,6 +382,53 @@ public class Tarea4_CARLOSFLORES {
             }
         }
         return show;
-    }
+    }//fin checkforhit_buscaminas
+    
+    public static void imprimir_tab_actual(char show [][]){
+        for (int j = 0; j < 7; j++) {
+            if(j == 0){
+                System.out.print("  ");
+            }else{
+                System.out.print(" "+(j-1)+" ");
+            }//fin else 
+        }//fin for
+        System.out.println();
+        for (int j = 0; j < show.length; j++) {
+            System.out.print(j+" ");
+            for (int k = 0; k < show[j].length; k++) {
+                if(show[j][k] == (char) 42){
+                    char esp = (char) 32;
+                    System.out.print("["+esp+"]");
+                }else{
+                    System.out.print("["+show[j][k]+"]");
+                }
+            }//fin for
+        System.out.println("");
+        }//fin for
+    }//fin imprimir_tab_actual
+    
+    public static void imprimir_tab_perdiste(char show [][], int cords []){
+        System.out.println("NOTA: M = Mina");
+        for (int j = 0; j < 7; j++) {
+            if(j == 0){
+                System.out.print("  ");
+            }else{
+                System.out.print(" "+(j-1)+" ");
+            }//fin else 
+        }//fin for
+        System.out.println();
+        for (int j = 0; j < show.length; j++) {
+            System.out.print(j+" ");
+            for (int k = 0; k < show[j].length; k++) {
+                if(cords[0] == j && cords[1] == k){
+                    char m = (char) 77;
+                    System.out.print("["+m+"]");
+                }else{
+                    System.out.print("["+show[j][k]+"]");
+                }
+            }//fin for
+        System.out.println("");
+        }//fin for
+    }//fin imprimir_tab_perdiste
     
 }//fin class 
